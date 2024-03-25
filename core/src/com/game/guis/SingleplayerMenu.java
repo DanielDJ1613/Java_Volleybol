@@ -1,6 +1,7 @@
 package com.game.guis;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -22,8 +23,8 @@ public class SingleplayerMenu extends ScreenAdapter {
 
     public SingleplayerMenu() {
         batch = new SpriteBatch();
-        vsBotButtonTexture = new Texture("vsbot_button.png");
-        oneVsOneButtonTexture = new Texture("1vs1_button.png");
+        vsBotButtonTexture = new Texture("vsbot.png");
+        oneVsOneButtonTexture = new Texture("1vs1.png");
 
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
@@ -37,6 +38,26 @@ public class SingleplayerMenu extends ScreenAdapter {
 
         vsBotButtonBounds = new Rectangle(buttonX, vsBotButtonY, BUTTON_WIDTH, BUTTON_HEIGHT);
         oneVsOneButtonBounds = new Rectangle(buttonX, oneVsOneButtonY, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                Vector3 touchPos = new Vector3(screenX, screenY, 0);
+                camera.unproject(touchPos);
+
+                if (vsBotButtonBounds.contains(touchPos.x, touchPos.y)) {
+                    // Ação ao clicar no botão Vs Bot
+                    System.out.println("Botão Vs Bot pressionado!");
+                    return true;
+                } else if (oneVsOneButtonBounds.contains(touchPos.x, touchPos.y)) {
+                    // Ação ao clicar no botão 1 Vs 1
+                    System.out.println("Botão 1 Vs 1 pressionado!");
+                    return true;
+                }
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -58,23 +79,5 @@ public class SingleplayerMenu extends ScreenAdapter {
         batch.dispose();
         vsBotButtonTexture.dispose();
         oneVsOneButtonTexture.dispose();
-    }
-
-
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Vector3 touchPos = new Vector3(screenX, screenY, 0);
-        camera.unproject(touchPos);
-
-        if (vsBotButtonBounds.contains(touchPos.x, touchPos.y)) {
-            // Ação ao clicar no botão Vs Bot
-            System.out.println("Botão Vs Bot pressionado!");
-            return true;
-        } else if (oneVsOneButtonBounds.contains(touchPos.x, touchPos.y)) {
-            // Ação ao clicar no botão 1 Vs 1
-            System.out.println("Botão 1 Vs 1 pressionado!");
-            return true;
-        }
-
-        return false;
     }
 }

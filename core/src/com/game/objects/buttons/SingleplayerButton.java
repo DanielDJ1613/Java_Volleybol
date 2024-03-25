@@ -4,12 +4,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
 public class SingleplayerButton {
+    private static final int DEFAULT_X = 300;
+    private static final int DEFAULT_Y = 500;
+    private static final String DEFAULT_TEXTURE_PATH = "singleplayer-button.png";
+
     private Texture texture;
     private Rectangle bounds;
 
-    public SingleplayerButton(float x, float y) {
-        texture = new Texture("singleplayer-button.png");
-        bounds = new Rectangle(x, y, 200, 50); // Define a posição e o tamanho do botão
+    public SingleplayerButton() {
+        texture = new Texture(DEFAULT_TEXTURE_PATH);
+        bounds = new Rectangle(DEFAULT_X, DEFAULT_Y, 200, 50); // Define a posição e o tamanho do botão
     }
 
     public Texture getTexture() {

@@ -3,12 +3,29 @@ package com.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.game.guis.MainMenu;
+import com.game.guis.SingleplayerMenu;
 
 public class MyGame extends Game {
+    private MainMenu mainMenu;
+    private SingleplayerMenu singleplayerMenu;
+    // Declare outras telas aqui
 
     @Override
     public void create() {
-        setScreen(new MainMenu());
+        // Instancia e configura o MainMenu
+        setupMainMenu();
+
+        singleplayerMenu = new SingleplayerMenu();
+        // Instancie outras telas
+
+        // Defina a tela inicial como o menu principal
+        setScreen(mainMenu);
+    }
+
+    // Método para instanciar e configurar o MainMenu
+    private void setupMainMenu() {
+        mainMenu = new MainMenu();
+        mainMenu.setGame(this); // Configura a referência ao MyGame dentro do MainMenu
     }
 
     // Método para mudar de tela
@@ -16,16 +33,20 @@ public class MyGame extends Game {
         Screen newScreen = null;
         switch (screenEnum) {
             case MAIN_MENU:
-                newScreen = new MainMenu();
+                newScreen = mainMenu;
                 break;
-            // Adicione mais cases para outras telas aqui, conforme necessário
+            case SINGLEPLAYER_MENU:
+                newScreen = singleplayerMenu;
+                break;
+            // Adicione outros casos para outras telas aqui conforme necessário
         }
         setScreen(newScreen);
     }
 
     // Enumeração para representar as telas
     public enum ScreenEnum {
-        MAIN_MENU
-        // Adicione mais tipos de tela aqui conforme necessário
+        MAIN_MENU,
+        SINGLEPLAYER_MENU
+        // Adicione outros tipos de tela aqui conforme necessário
     }
 }

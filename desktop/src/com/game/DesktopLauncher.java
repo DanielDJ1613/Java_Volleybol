@@ -2,10 +2,14 @@ package com.game;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-// Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
+
 public class DesktopLauncher {
-	public static void main (String[] arg) {
+	public static void main(String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+
+		// Defina o tamanho da janela aqui
+		config.setWindowedMode(1000, 800); // Largura x Altura
+
 		config.setForegroundFPS(60);
 		config.setTitle("Volei Game [Demo]");
 		new Lwjgl3Application(new Initializer(), config);
