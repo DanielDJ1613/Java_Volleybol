@@ -1,10 +1,11 @@
 package com.game.objects;
-
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class PlayerBlue {
+    private Texture texture;
     private Sprite sprite;
     private float x, y;
     private float velocityX, velocityY;
@@ -12,7 +13,7 @@ public class PlayerBlue {
 
     public PlayerBlue(float x, float y) {
         // Carregar a imagem do jogador diretamente aqui
-        Texture texture = new Texture(Gdx.files.internal("player.png"));
+        this.texture = new Texture("player.png"); // Inicializar a variável de instância
         this.sprite = new Sprite(texture);
         this.sprite.setPosition(x, y);
         this.x = x;
@@ -58,6 +59,18 @@ public class PlayerBlue {
         this.velocityX = velocityX;
         this.velocityY = velocityY;
     }
+    public void render(SpriteBatch batch) {
+        if (texture != null) {
+            batch.draw(texture, x, y);
+        }
+        else {
+            System.out.println("Textura não carregada - Player Blue");
+        }
+    }
 
+
+    public void dispose() {
+        texture.dispose();
+    }
 
 }

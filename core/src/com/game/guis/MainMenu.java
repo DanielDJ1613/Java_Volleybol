@@ -51,7 +51,7 @@ public class MainMenu extends ScreenAdapter {
             Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);
             if (singleplayerButton.getBounds().contains(touchPos.x, touchPos.y)) {
-                game.changeScreen(MyGame.ScreenEnum.SINGLEPLAYER_MENU);
+                game.changeScreen(MyGame.ScreenEnum.GAMESCREEN);
             } else if (multiplayerButton.getBounds().contains(touchPos.x, touchPos.y)) {
                 // Add your logic for multiplayer button click here
             }

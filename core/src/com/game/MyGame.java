@@ -8,6 +8,8 @@ import com.game.guis.SingleplayerMenu;
 public class MyGame extends Game {
     private MainMenu mainMenu;
     private SingleplayerMenu singleplayerMenu;
+
+    private  GameScreen gamescreen;
     // Declare outras telas aqui
 
     @Override
@@ -16,6 +18,7 @@ public class MyGame extends Game {
         setupMainMenu();
 
         singleplayerMenu = new SingleplayerMenu();
+        gamescreen = new GameScreen();
         // Instancie outras telas
 
         // Defina a tela inicial como o menu principal
@@ -38,6 +41,9 @@ public class MyGame extends Game {
             case SINGLEPLAYER_MENU:
                 newScreen = singleplayerMenu;
                 break;
+            case GAMESCREEN:
+                newScreen = gamescreen;
+                break;
             // Adicione outros casos para outras telas aqui conforme necessário
         }
         setScreen(newScreen);
@@ -46,7 +52,8 @@ public class MyGame extends Game {
     // Enumeração para representar as telas
     public enum ScreenEnum {
         MAIN_MENU,
-        SINGLEPLAYER_MENU
+        SINGLEPLAYER_MENU,
+        GAMESCREEN
         // Adicione outros tipos de tela aqui conforme necessário
     }
 }
