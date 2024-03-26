@@ -38,11 +38,18 @@ public class PlayerRed {
     public Sprite getSprite() {
         return sprite;
     }
-
     public float getX() {
         return x;
     }
+    public void setY(float y) {
+        this.y = y;
+        sprite.setY(y);
+    }
 
+    public void setX(float x) {
+        this.x = x;
+        sprite.setX(x);
+    }
     public float getY() {
         return y;
     }

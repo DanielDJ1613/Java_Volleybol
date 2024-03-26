@@ -47,6 +47,15 @@ public class PlayerBlue {
         return y;
     }
 
+    public void setY(float y) {
+        this.y = y;
+        sprite.setY(y);
+    }
+    public void setX(float x) {
+        this.x = x;
+        sprite.setX(x);
+    }
+
     public float getVelocityX() {
         return velocityX;
     }

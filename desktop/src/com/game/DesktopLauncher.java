@@ -7,7 +7,7 @@ public class DesktopLauncher {
 	public static void main(String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 
-		// Defina o tamanho da janela aqui
+
 		config.setWindowedMode(1000, 800); // Largura x Altura
 
 		config.setForegroundFPS(60);

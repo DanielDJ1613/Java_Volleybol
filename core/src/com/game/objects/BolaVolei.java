@@ -3,16 +3,18 @@ package com.game.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BolaVolei {
     private Sprite sprite;
+    private Texture texture;
     private float x, y;
     private float velocityX, velocityY;
     private float gravity;
 
     public BolaVolei(float x, float y) {
         // Carregar a imagem da bola de vôlei diretamente aqui
-        Texture texture = new Texture(Gdx.files.internal("bola_volei.png"));
+        this.texture = new Texture("bola_volei.png"); // Inicializar a variável de instância
         this.sprite = new Sprite(texture);
         this.sprite.setPosition(x, y);
         this.x = x;
@@ -50,6 +52,13 @@ public class BolaVolei {
         this.velocityX = velocityX;
         this.velocityY = velocityY;
     }
-
+    public void render(SpriteBatch batch) {
+        if (texture != null) {
+            batch.draw(texture, x, y);
+        }
+        else {
+            System.out.println("Textura não carregada - Player Red");
+        }
+    }
     // Outros métodos úteis podem ser adicionados conforme necessário
 }
