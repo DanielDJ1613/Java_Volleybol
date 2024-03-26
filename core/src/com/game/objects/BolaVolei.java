@@ -1,6 +1,5 @@
 package com.game.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -48,17 +47,50 @@ public class BolaVolei {
         return y;
     }
 
+    public float getWidth() {
+        return sprite.getWidth();
+    }
+
+    public float getHeight() {
+        return sprite.getHeight();
+    }
+
+    public float getVelocityX() {
+        return velocityX;
+    }
+
+    public float getVelocityY() {
+        return velocityY;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+        sprite.setX(x);
+    }
+
+    public void setY(float y) {
+        this.y = y;
+        sprite.setY(y);
+    }
+
+    public void setVelocityX(float velocityX) {
+        this.velocityX = velocityX;
+    }
+
+    public void setVelocityY(float velocityY) {
+        this.velocityY = velocityY;
+    }
+
     public void setVelocity(float velocityX, float velocityY) {
         this.velocityX = velocityX;
         this.velocityY = velocityY;
     }
+
     public void render(SpriteBatch batch) {
-        if (texture != null) {
-            batch.draw(texture, x, y);
-        }
-        else {
-            System.out.println("Textura não carregada - Player Red");
-        }
+        sprite.draw(batch);
     }
-    // Outros métodos úteis podem ser adicionados conforme necessário
+
+    public void dispose() {
+        texture.dispose();
+    }
 }

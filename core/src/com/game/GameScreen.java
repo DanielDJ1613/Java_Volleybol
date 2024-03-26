@@ -10,15 +10,19 @@ import com.game.objects.PlayerBlue;
 import com.game.objects.PlayerRed;
 import com.game.rules.GameLimits;
 import com.game.settings.Movement;
+import com.game.rules.BallCollision;
+import com.game.objects.Floor; // Import adicionado
 
 public class GameScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private PlayerBlue playerBlue;
     private PlayerRed playerRed;
-    private  BolaVolei ball;
+    private BolaVolei ball;
+    private BallCollision ballCollision;
     private GameLimits gameLimits;
     private Movement movement;
+    private Floor floor; // Objeto do chão adicionado
     private int fieldWidth;
     private int fieldHeight;
 
@@ -36,18 +40,20 @@ public class GameScreen extends ScreenAdapter {
         playerRed = new PlayerRed(500, 100);
         ball = new BolaVolei(500, 400);
 
-        // Inicialize as regras de limites e movimento
-        gameLimits = new GameLimits(fieldWidth, fieldHeight, playerBlue, playerRed);
+        // Inicialize o chão
+        floor = new Floor(1, 0); // Adicionado
+
+        // Na classe GameScreen
+        gameLimits = new GameLimits(fieldWidth, fieldHeight, playerBlue, playerRed, floor); // Passe o objeto Floor como parâmetro
+
         movement = new Movement(playerBlue, playerRed);
+        ballCollision = new BallCollision(fieldWidth, fieldHeight, playerBlue, playerRed, ball);
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        // Verifique a entrada de movimento dos jogadores
-        movement.handleInput();
 
         // Atualize a posição dos jogadores
         playerBlue.update();
@@ -56,6 +62,17 @@ public class GameScreen extends ScreenAdapter {
 
         // Aplique limites do jogo
         gameLimits.checkBoundaries();
+
+        // Verifique as colisões entre a bola e os jogadores
+        ballCollision.checkCollisions();
+
+        // Desenhe o chão
+        batch.begin();
+        floor.render(); // Adicionado
+        batch.end();
+
+        // Verifique a entrada de movimento dos jogadores
+        movement.handleInput();
 
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -66,6 +83,7 @@ public class GameScreen extends ScreenAdapter {
         playerBlue.render(batch);
         playerRed.render(batch);
         ball.render(batch);
+        movement.updateJumpState(); // Adicione esta linha para atualizar o estado do pulo
 
         batch.end();
     }
@@ -75,5 +93,7 @@ public class GameScreen extends ScreenAdapter {
         batch.dispose();
         playerBlue.dispose();
         playerRed.dispose();
+        ball.dispose(); // Dispose da textura da bola
+        floor.dispose(); // Dispose do chão
     }
 }

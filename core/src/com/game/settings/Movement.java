@@ -30,7 +30,7 @@ public class Movement {
             playerBlue.setVelocity(0, playerBlue.getVelocityY());
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && !blueJumping) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W) && playerBlue.getY() <= 0 && !blueJumping) {
             playerBlue.setVelocity(playerBlue.getVelocityX(), JUMP_VELOCITY);
             blueJumping = true;
         }
@@ -44,7 +44,7 @@ public class Movement {
             playerRed.setVelocity(0, playerRed.getVelocityY());
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && !redJumping) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && playerRed.getY() <= 0 && !redJumping) {
             playerRed.setVelocity(playerRed.getVelocityX(), JUMP_VELOCITY);
             redJumping = true;
         }

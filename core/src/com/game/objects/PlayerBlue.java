@@ -8,7 +8,7 @@ public class PlayerBlue {
     private Texture texture;
     private Sprite sprite;
     private float x, y;
-    private float velocityX, velocityY;
+    private float velocityX, velocityY, initialY;
     private float gravity;
 
     public PlayerBlue(float x, float y) {
@@ -21,6 +21,7 @@ public class PlayerBlue {
         this.velocityX = 0;
         this.velocityY = 0;
         this.gravity = -0.5f; // ajuste conforme necessário
+        this.initialY = y;
     }
 
     public void update() {
@@ -47,6 +48,7 @@ public class PlayerBlue {
         return y;
     }
 
+    public float getInitialY() {return initialY;}
     public void setY(float y) {
         this.y = y;
         sprite.setY(y);
