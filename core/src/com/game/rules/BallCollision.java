@@ -1,6 +1,8 @@
 package com.game.rules;
 
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.game.objects.PlayerBlue;
 import com.game.objects.PlayerRed;
 import com.game.objects.BolaVolei;
@@ -39,25 +41,33 @@ public class BallCollision {
         }
 
         // Colisão entre jogadores e bola
-        Rectangle ballBounds = ball.getSprite().getBoundingRectangle();
-        Rectangle playerBlueBounds = playerBlue.getSprite().getBoundingRectangle();
-        Rectangle playerRedBounds = playerRed.getSprite().getBoundingRectangle();
+        Rectangle ballBounds = new Rectangle(ball.getX() - ball.getRadius(), ball.getY() - ball.getRadius(), ball.getRadius() * 2, ball.getRadius() * 2);
+        Rectangle playerBlueBounds = playerBlue.getBounds();
+        Rectangle playerRedBounds = playerRed.getBounds();
 
-        if (playerBlueBounds.overlaps(ballBounds)) {
-            // Lógica de colisão entre jogador azul e bola
-            float hitDirection = (ball.getX() - playerBlue.getX()) / playerBlue.getX(); // Calcula a direção do chute baseada na posição do jogador
-            float hitStrength = (ball.getY() - playerBlue.getY()) / playerBlue.getY(); // Calcula a força do chute baseada na posição do jogador
-            // Aplica uma força horizontal e vertical com base na direção e força do chute
-            ball.setVelocity(hitDirection * 5, hitStrength * 5 - 10); // Desconta a gravidade
+        if (Intersector.overlaps(ballBounds, playerBlueBounds)) {
+            // Calcula o vetor de deslocamento entre o centro da bola e o centro do jogador
+            Vector2 displacement = new Vector2(playerBlue.getX() - ball.getX(), playerBlue.getY() - ball.getY());
+
+            // Calcula o vetor de reflexão
+            Vector2 reflection = new Vector2(-displacement.x, -displacement.y).nor();
+
+            // Atualiza a velocidade da bola com base na reflexão, com uma velocidade ainda mais lenta
+            ball.setVelocity(reflection.x * 15, reflection.y * 15);
         }
 
-        if (playerRedBounds.overlaps(ballBounds)) {
-            // Lógica de colisão entre jogador vermelho e bola
-            float hitDirection = (ball.getX() - playerRed.getX()) / playerRed.getX(); // Calcula a direção do chute baseada na posição do jogador
-            float hitStrength = (ball.getY() - playerRed.getY()) / playerRed.getY(); // Calcula a força do chute baseada na posição do jogador
-            // Aplica uma força horizontal e vertical com base na direção e força do chute
-            ball.setVelocity(hitDirection * 5, hitStrength * 5 - 10); // Desconta a gravidade
+        if (Intersector.overlaps(ballBounds, playerRedBounds)) {
+            // Calcula o vetor de deslocamento entre o centro da bola e o centro do jogador
+            Vector2 displacement = new Vector2(playerRed.getX() - ball.getX(), playerRed.getY() - ball.getY());
+
+            // Calcula o vetor de reflexão
+            Vector2 reflection = new Vector2(-displacement.x, -displacement.y).nor();
+
+            // Atualiza a velocidade da bola com base na reflexão, com uma velocidade ainda mais lenta
+            ball.setVelocity(reflection.x * 15, reflection.y * 15);
         }
     }
 
+
 }
+

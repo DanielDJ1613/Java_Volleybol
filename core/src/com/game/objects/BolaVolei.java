@@ -3,6 +3,7 @@ package com.game.objects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class BolaVolei {
     private Sprite sprite;
@@ -12,26 +13,20 @@ public class BolaVolei {
     private float gravity;
 
     public BolaVolei(float x, float y) {
-        // Carregar a imagem da bola de vôlei diretamente aqui
-        this.texture = new Texture("bola_volei.png"); // Inicializar a variável de instância
+        this.texture = new Texture("bola_volei.png");
         this.sprite = new Sprite(texture);
         this.sprite.setPosition(x, y);
         this.x = x;
         this.y = y;
         this.velocityX = 0;
         this.velocityY = 0;
-        this.gravity = -0.5f; // Ajuste conforme necessário
+        this.gravity = -0.5f;
     }
 
     public void update() {
-        // Aplicar gravidade
         velocityY += gravity;
-
-        // Atualizar posição da bola de vôlei
         x += velocityX;
         y += velocityY;
-
-        // Atualizar posição do sprite
         sprite.setPosition(x, y);
     }
 
@@ -92,5 +87,15 @@ public class BolaVolei {
 
     public void dispose() {
         texture.dispose();
+    }
+
+    // Método para obter os limites retangulares da bola
+    public Rectangle getBounds() {
+        return new Rectangle(sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+    }
+
+    // Método para obter o raio da bola
+    public float getRadius() {
+        return sprite.getWidth() / 2;
     }
 }
